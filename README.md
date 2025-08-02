@@ -37,90 +37,147 @@ This is a simple **e-commerce application** with both backend and frontend parts
 
 ---
 
-## 📦 Setup Instructions
+## ⚙️ Setup Instructions
 
-### Backend
+### 📦 Backend
 
-1. Clone the repo:  
-   git clone <your-repo-url>
+1. **Clone the repo**:
+   ```bash
+   git clone <repo-url>
    cd shopping-cart-backend
-Install Go modules:
+   ```
 
-bash
-go mod tidy
-Create .env file with:
+2. **Install Go modules**:
+   ```bash
+   go mod tidy
+   ```
 
-JWT_SECRET=your_super_secret_key
-Run backend server:
+3. **Create a `.env` file** with:
+   ```env
+   JWT_SECRET=your_super_secret_key
+   ```
 
-bash
-go run main.go
-Frontend
-Navigate to frontend folder (e.g., shopping-cart-frontend)
+4. **Run the backend server**:
+   ```bash
+   go run main.go
+   ```
 
-Install dependencies:
+---
 
-bash
-npm install
-Start React development server:
+### 🌐 Frontend
 
-bash
-npm start
-Frontend runs on http://localhost:3000 by default and calls backend APIs on http://localhost:8080
+1. **Navigate to frontend folder**:
+   ```bash
+   cd shopping-cart-frontend
+   ```
 
-🛠️ Frontend Routes & Pages
-Path	Description
-/items	View all available items
-/add-item	Add new item form
-/cart	View current user's cart
-/checkout	Checkout page to place order
-/orders	User's order history
-/login	Login page
-/register	User registration page
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-🔗 Frontend & Backend Integration Details
-Authentication:
-On login, JWT token is saved in localStorage. All protected requests (cart, orders, add to cart) send token in Authorization header:
-Authorization: Bearer <JWT_TOKEN>
+3. **Start React development server**:
+   ```bash
+   npm start
+   ```
 
-Add to Cart:
-Adds item to user's cart via POST /carts. The item is then removed from the items list on frontend to reflect state.
+- Frontend runs on: [http://localhost:3001](http://localhost:3000)  
+- Backend APIs run on: [http://localhost:8080](http://localhost:8080)
 
-Cart & Checkout:
-Cart page fetches current cart from backend. Checkout posts to /orders to place order.
+---
 
-Add Item:
-Item addition form posts to /items. On success, user is redirected back to /items.
+## 🛠️ Frontend Routes & Pages
 
-📋 Sample API Usage (Backend)
-Use curl or frontend app to interact:
+| Path         | Description                    |
+|--------------|--------------------------------|
+| `/items`     | View all available items       |
+| `/add-item`  | Add new item form              |
+| `/cart`      | View current user's cart       |
+| `/checkout`  | Checkout page to place order   |
+| `/orders`    | User's order history           |
+| `/login`     | Login page                     |
+| `/register`  | User registration page         |
 
-Register user:
+---
 
-bash
-curl -X POST http://localhost:8080/users -H "Content-Type: application/json" -d '{"username": "user1", "password": "pass"}'
-Login:
+## 🔗 Frontend & Backend Integration
 
-bash
-curl -X POST http://localhost:8080/users/login -H "Content-Type: application/json" -d '{"username": "user1", "password": "pass"}'
-List Items:
+### 🔐 Authentication
+- On login, **JWT token** is saved in `localStorage`.
+- All protected requests include:
+  ```http
+  Authorization: Bearer <JWT_TOKEN>
+  ```
 
-bash
+### 🛒 Add to Cart
+- Adds item to user's cart using:
+  ```http
+  POST /carts
+  ```
+- On success, item is removed from the item list on the frontend.
+
+### 🛍️ Cart & Checkout
+- Cart fetches from:
+  ```http
+  GET /carts
+  ```
+- Checkout posts to:
+  ```http
+  POST /orders
+  ```
+
+### ➕ Add Item
+- Posts to `/items`.
+- On success, redirects back to `/items`.
+
+---
+
+## 📋 Sample API Usage
+
+### 🔐 Register user
+```bash
+curl -X POST http://localhost:8080/users \
+-H "Content-Type: application/json" \
+-d '{"username": "user1", "password": "pass"}'
+```
+
+### 🔑 Login
+```bash
+curl -X POST http://localhost:8080/users/login \
+-H "Content-Type: application/json" \
+-d '{"username": "user1", "password": "pass"}'
+```
+
+### 📦 List Items
+```bash
 curl http://localhost:8080/items
-Add to Cart (with JWT token):
+```
 
-bash
-curl -X POST http://localhost:8080/carts -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"item_id": 1}'
-Get Cart:
+### ➕ Add to Cart (JWT required)
+```bash
+curl -X POST http://localhost:8080/carts \
+-H "Authorization: Bearer <JWT_TOKEN>" \
+-H "Content-Type: application/json" \
+-d '{"item_id": 1}'
+```
 
-bash
-curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:8080/carts
-Place Order:
+### 🛒 Get Cart
+```bash
+curl -H "Authorization: Bearer <JWT_TOKEN>" \
+http://localhost:8080/carts
+```
 
-bash
-curl -X POST http://localhost:8080/orders -H "Authorization: Bearer <JWT_TOKEN>"
-🗂️ Folder Structure
-go
+### 🧾 Place Order
+```bash
+curl -X POST http://localhost:8080/orders \
+-H "Authorization: Bearer <JWT_TOKEN>"
+```
+
+---
+
+## 🗂️ Folder Structure
+
+```
 shopping-cart-backend/
 ├── controllers/
 ├── middleware/
@@ -142,10 +199,15 @@ shopping-cart-frontend/
 │   │   ├── OrderHistory.jsx
 │   │   └── Register.jsx
 │   ├── services/
-│   │   └── api.js  (axios instance)
+│   │   └── api.js
 │   ├── App.js
 │   └── index.js
 ├── package.json
 └── ...
-License
-MIT License
+```
+
+---
+
+## 📄 License
+
+MIT License. Use freely with attribution.
