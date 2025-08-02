@@ -1,0 +1,47 @@
+/* styles.css */
+.page-container {
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+}
+
+.card-title {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.button {
+  padding: 10px 16px;
+  margin-top: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #3e8e41;
+}
+
+.total-box {
+  margin-top: 20px;
+}
